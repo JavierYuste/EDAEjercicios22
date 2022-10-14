@@ -1,15 +1,24 @@
 package Exercises.Ex9Maps;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Scanner;
 
 public class WordCount {
 
+    int initialValues = 5000;
+    int updates = 100000;
+
     @Test
+    @Order(1)
     public void countWordsInText() throws FileNotFoundException {
         Map<String,Integer> freq = new UnsortedArrayMap<>();
         Scanner doc = null;
@@ -39,6 +48,54 @@ public class WordCount {
         System.out.println("' with " + maxCount + " occurrences.");
         Assertions.assertEquals("de", maxWord);
         Assertions.assertEquals(21, maxCount);
+    }
+
+    @Test
+    @Order(2)
+    void timeConsumptionOfUnsortedArrayMap(){
+        Random random = new Random();
+        Map<Integer, Integer> freq = new UnsortedArrayMap<>();
+        Instant start = Instant.now();
+        for (int i = 0; i < initialValues; i++) {
+            freq.put(random.nextInt(), random.nextInt());
+        }
+
+        for (int i = 0; i < updates; i++) {
+            int key = random.nextInt();
+            if (!freq.containsKey(key)){
+                freq.put(key, random.nextInt());
+                freq.remove(key);
+            }
+            else{
+                freq.put(key, random.nextInt());
+            }
+        }
+        Duration duration = Duration.between(start, Instant.now());
+        System.out.printf("With UnsortedArrayMap, the test took %d.%d seconds%n", duration.toSecondsPart(), duration.toMillisPart());
+    }
+
+    @Test
+    @Order(3)
+    void timeConsumptionOfHashMap(){
+        Random random = new Random();
+        java.util.Map<Integer, Integer> freq = new HashMap<>();
+        Instant start = Instant.now();
+        for (int i = 0; i < initialValues; i++) {
+            freq.put(random.nextInt(), random.nextInt());
+        }
+
+        for (int i = 0; i < updates; i++) {
+            int key = random.nextInt();
+            if (!freq.containsKey(key)){
+                freq.put(key, random.nextInt());
+                freq.remove(key);
+            }
+            else{
+                freq.put(key, random.nextInt());
+            }
+        }
+        Duration duration = Duration.between(start, Instant.now());
+        System.out.printf("With HashMap, the test took %d.%d seconds%n", duration.toSecondsPart(), duration.toMillisPart());
     }
 
 }

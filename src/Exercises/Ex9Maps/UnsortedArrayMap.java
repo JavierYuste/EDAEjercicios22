@@ -35,6 +35,22 @@ public class UnsortedArrayMap<K,V> extends AbstractMap<K,V> {
         return table.get(j).getValue();
     }
 
+    /**
+     * Associates the specified value with the specified key in this map
+     * (optional operation).  If the map previously contained a mapping for
+     * the key, the old value is replaced by the specified value.  (A map
+     * {@code m} is said to contain a mapping for a key {@code k} if and only
+     * if {@link #containsKey(Object) m.containsKey(k)} would return
+     * {@code true}.)
+     *
+     * @param key key with which the specified value is to be associated
+     * @param value value to be associated with the specified key
+     * @return the previous value associated with {@code key}, or
+     *         {@code null} if there was no mapping for {@code key}.
+     *         (A {@code null} return can also indicate that the map
+     *         previously associated {@code null} with {@code key},
+     *         if the implementation supports {@code null} values.)
+     */
     public V put(K key, V value) {
         throw new UnsupportedOperationException("Not implemented");
     }
@@ -82,6 +98,17 @@ public class UnsortedArrayMap<K,V> extends AbstractMap<K,V> {
         return new EntryIterable( );
     }
 
+    /**
+     * Returns {@code true} if this map contains a mapping for the specified
+     * key.  More formally, returns {@code true} if and only if
+     * this map contains a mapping for a key {@code k} such that
+     * {@code Objects.equals(key, k)}.  (There can be
+     * at most one such mapping.)
+     *
+     * @param key key whose presence in this map is to be tested
+     * @return {@code true} if this map contains a mapping for the specified
+     *         key
+     */
     public boolean containsKey(K key){
         throw new UnsupportedOperationException("Not implemented");
     }
